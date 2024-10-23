@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'Project Show Page', type: :feature do
@@ -17,5 +19,27 @@ RSpec.describe 'Project Show Page', type: :feature do
 
   it 'displays comments in descending order' do
     expect(page.body.index('Second comment')).to be < page.body.index('First comment')
+  end
+
+  it "reveals the new comment form when the 'Add New Comment' button is clicked" do
+    expect(page).to have_selector("div.hidden[data-project-comments-form-target='hideable']", visible: false)
+    click_button 'Add New Comment'
+    expect(page).to have_selector('form')
+  end
+
+  it 'allows adding a new comment' do
+    click_button 'Add New Comment'
+    fill_in 'Comment', with: 'This is a new comment'
+    click_button 'Submit'
+    expect(page).to have_current_path(project_path(project))
+    expect(page).to have_content('This is a new comment')
+  end
+
+  it 'does not allow submitting an empty comment' do
+    click_button 'Add New Comment'
+    fill_in 'Comment', with: ''
+    click_button 'Submit'
+    expect(page).to have_selector('form')
+    expect(page).to have_content('The comment could not be saved, please try again or contact support')
   end
 end

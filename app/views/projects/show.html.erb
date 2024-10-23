@@ -1,3 +1,14 @@
+<div data-controller="project-comments-form">
+	<button id="show-comment-form" class="btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+					data-action="click->project-comments-form#reveal">
+		Add New Comment
+	</button>
+
+	<!-- Have comment form hidden and revealed on Add New Comment click -->
+	<div data-project-comments-form-target="hideable" class="hidden">
+		<%= render 'comments/form', locals: { project: @project } %>
+	</div>
+</div>
 <table class="table-auto w-full border border-gray-300">
 	<tbody>
 	<tr>

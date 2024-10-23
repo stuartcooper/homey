@@ -9,6 +9,7 @@ class ProjectsController < ApplicationController
 
   def show
     @comments = sorted_comments
+    @comment = project.comments.new
   end
 
   def update
