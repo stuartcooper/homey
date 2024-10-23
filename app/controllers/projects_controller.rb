@@ -1,5 +1,7 @@
 # The ProjectsController is the interface for all RESTful requests for Projects
 class ProjectsController < ApplicationController
+  include CommentsHelper
+
   before_action :set_project, only: %i[show update]
   def index
     @projects = Project.all
@@ -9,7 +11,16 @@ class ProjectsController < ApplicationController
     @comments = sorted_comments
   end
 
-  def update; end
+  def update
+    starting_status = project.status
+    return unless project.update(project_params)
+
+    create_status_change_comment(starting_status:, project:)
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to project, notice: 'Project status was successfully updated.' }
+    end
+  end
 
   private
 

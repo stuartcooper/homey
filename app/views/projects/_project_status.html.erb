@@ -1,0 +1,13 @@
+<form action="/projects/<%= @project.id %>" accept-charset="UTF-8" data-remote="true" method="post">
+	<input type="hidden" name="_method" value="patch" autocomplete="off">
+	<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>" autocomplete="off">
+
+	<label for="status" class="block text-gray-700 font-semibold mb-2">Status</label>
+	<select class="form-select mt-1 block w-full" name="project[status]" id="project_status" data-controller="project-status-form" data-action="change->project-status-form#submit">
+		<option value="created" <%= 'selected' if project.status == 'created' %>>Created</option>
+		<option value="planning" <%= 'selected' if project.status == 'planning' %>>Planning</option>
+		<option value="in_progress" <%= 'selected' if project.status == 'in_progress' %>>In Progress</option>
+		<option value="in_review" <%= 'selected' if project.status == 'in_review' %>>In Review</option>
+		<option value="completed" <%= 'selected' if project.status == 'completed' %>>Completed</option>
+	</select>
+</form>

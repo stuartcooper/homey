@@ -12,7 +12,7 @@ RSpec.describe 'Project Show Page', type: :feature do
   it 'displays project information' do
     expect(page).to have_content('Test Project')
     expect(page).to have_content("Created at: #{project.created_at.strftime('%d %B %Y')}")
-    expect(page).to have_content(project.status)
+    expect(page).to have_content(stringify_status(project.status))
   end
 
   it 'displays comments in descending order' do
