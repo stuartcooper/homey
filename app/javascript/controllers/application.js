@@ -6,7 +6,4 @@ const application = Application.start()
 application.debug = false
 window.Stimulus   = application
 
-import ProjectStatusFormController from "../controllers/project_status_form_controller"
-application.register("project-status-form", ProjectStatusFormController)
-
 export { application }
