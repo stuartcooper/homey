@@ -1,0 +1,11 @@
+= form_with model: @project, local: false, method: :patch do |f|
+  label.block.text-gray-700.font-semibold.mb-2 for="status" Status
+  = f.select :status,
+        [%w[Created created],
+              %w[Planning planning],
+              ['In Progress', 'in_progress'],
+              ['In Review', 'in_review'],
+              %w[Completed completed]],
+        {},
+        class: "form-select mt-1 block w-full",
+        data: { controller: "project-status-form", action: "change->project-status-form#submit" }

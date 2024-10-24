@@ -1,0 +1,23 @@
+div data-controller="project-comments-form"
+	button#show-comment-form.btn.mb-5.bg-blue-500.hover:bg-blue-700.text-white.font-bold.py-2.px-4.rounded data-action="click->project-comments-form#reveal" Add New Comment
+
+	/ Have comment form hidden and revealed on Add New Comment click
+	div.hidden data-project-comments-form-target="hideable"
+		= render 'comments/form', locals: { project: @project }
+
+table.table-auto.w-full.border.border-gray-300.mt-5
+	tbody
+		tr
+			td.border.px-4.py-4.w-1/2.align-top
+				h2.text-xl.font-bold.mb-4 = @project.name
+				turbo-frame#project_status
+					= render partial: 'project_status', locals: { project: @project }
+
+			td.border.px-4.py-4.w-1/2
+				- if @comments.any?
+					- @comments.each do |comment|
+						div.mb-4
+							p.bg-gray-100.text-gray-700.p-4.rounded-lg.mb-2 = comment.body
+							p.text-gray-500.text-sm = comment.created_at.strftime("%d %B %Y %H:%M")
+				- else
+					p.text-gray-500 No comments yet.
