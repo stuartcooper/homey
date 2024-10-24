@@ -1,5 +1,5 @@
 div class="grid row"
-	h1 class="font-bold text-4xl" Projects page
+	h1 class="font-bold text-4xl" Projects
 
 div class="grid mt-8 row"
 	- @projects.each do |project|
@@ -7,5 +7,4 @@ div class="grid mt-8 row"
 			p class="font-semibold text-lg"
 				= link_to project.name, project_path(project)
 			p class="text-gray-600"
-				| Status:
-				= project.status
+				= "Status: #{stringify_status(project.status)}"
